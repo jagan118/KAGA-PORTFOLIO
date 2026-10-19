@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="210" viewBox="0 0 480 210">
+<defs>
+<style>text { font-family: Inter, "Avenir Next", "Segoe UI", Arial, sans-serif; }</style>
+<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16161c"/><stop offset="0.6" stop-color="#0b0b0f"/><stop offset="1" stop-color="#2a0a0a"/></linearGradient>
+<linearGradient id="bar" x1="0" x2="1"><stop offset="0" stop-color="#e0231c"/><stop offset="1" stop-color="#e0231c" stop-opacity="0"/></linearGradient>
+<filter id="sh" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="14" stdDeviation="12" flood-color="#e0231c" flood-opacity="0.35"/></filter>
+</defs>
+<rect x="26" y="26" width="428" height="160" rx="18" fill="#e0231c" fill-opacity="0.10"/>
+<rect x="20" y="20" width="428" height="160" rx="18" fill="#2a0a0a" fill-opacity="0.9"/>
+<g transform="translate(10,10)" filter="url(#sh)">
+<rect width="428" height="160" rx="18" fill="url(#bg)"/>
+<rect width="428" height="160" rx="18" fill="none" stroke="#e0231c" stroke-width="1.5"><animate attributeName="stroke-opacity" values="0.25;0.9;0.25" dur="3.6s" repeatCount="indefinite"/></rect>
+<rect x="0" y="0" width="428" height="4" rx="2" fill="url(#bar)"/>
+<text x="400" y="62" text-anchor="end" font-family="Yu Mincho,serif" font-size="46" fill="#e0231c" fill-opacity="0.10">務</text>
+<text x="20" y="46" font-family="Segoe UI,Arial,sans-serif" font-size="11" letter-spacing="3" fill="#e0231c">務 · DUTY</text>
+<text x="20" y="80" font-family="Segoe UI,Arial,sans-serif" font-size="24" font-weight="800" letter-spacing="1" fill="#f2efe9">TEAMTASKER</text>
+<text x="20" y="104" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#d8d4cc" fill-opacity="0.8">Collaborative project &amp; task management.</text>
+<g transform="translate(-10,-10)"><g transform="translate(30,128)"><rect width="123" height="24" rx="12" fill="#e0231c" fill-opacity="0.12" stroke="#e0231c" stroke-opacity="0.6"/><text x="61" y="16" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#f2efe9">Collaboration</text></g><g transform="translate(162.8,128)"><rect width="115" height="24" rx="12" fill="#e0231c" fill-opacity="0.12" stroke="#e0231c" stroke-opacity="0.6"/><text x="58" y="16" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="11" font-weight="600" fill="#f2efe9">Productivity</text></g></g>
+<text x="408" y="148" text-anchor="end" font-family="Segoe UI,Arial,sans-serif" font-size="12" font-weight="700" fill="#e0231c">VIEW REPO →</text>
+</g>
+</svg>
