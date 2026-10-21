@@ -33,28 +33,39 @@ export const KAGE_TYPOGRAPHY: PageTypographyRecipe = {
   ],
   headingWeights: ["400", "500", "600", "700"],
   headingWeight: "400",
-  bodyWeights: ["300", "400", "500", "600"],
-  bodyWeight: "300",
+  bodyWeights: ["400", "500", "600", "700"],
+  bodyWeight: "400",
   primaryColor: "#e0231c",
   headingSize: [30, 46, 72],
-  bodySize: [13, 17, 24],
+  bodySize: [14, 17, 24],
   headingLetterSpacing: [-0.06, -0.012, 0.12],
   css: (v) => `
 :root {
   --vermilion: ${v.primary};
   --ember: ${v.retone("#ff5a3c")};
+  --bone: #f2f6f3;
+  --bone-soft: #e1e9e3;
+  --bone-dim: #c8d4cd;
+  --muted: #9db0a5;
 }
-body { font-family: ${v.body}; }
+body {
+  font-family: ${v.body};
+  color: var(--bone-soft);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
 body, .body, .body-lg, .num { font-weight: ${v.bodyWeight}; }
 h1:not(.jp), h2:not(.jp), h3:not(.jp), .display:not(.jp) {
   font-family: ${v.heading};
   font-weight: ${v.headingWeight};
+  color: var(--bone);
 }
 .display { letter-spacing: ${v.headingLetterSpacing}em; }
 .h-hero { font-size: clamp(26px, 3.05vw, ${px(v.headingSize)}); }
 .h-sec { font-size: clamp(30px, 4vw, ${px((v.headingSize * 60) / 46)}); }
-.body-lg { font-size: clamp(14px, 1.02vw, ${px(v.bodySize)}); }
-.body { font-size: ${px(Math.max(11, v.bodySize - 3))}; }
+.body-lg { font-size: clamp(15px, 1.05vw, ${px(v.bodySize)}); color: var(--bone-soft); }
+.body { font-size: ${px(Math.max(12, v.bodySize - 2))}; color: var(--bone-dim); }
 `,
 };
 

@@ -10,16 +10,17 @@
 <style>
 /* ============================================================= tokens */
 :root{
-  --ink:#05070a;          /* page black */
-  --ink-2:#0a0e12;        /* raised black */
-  --bone:#dfe7e0;         /* the pale sage white of the wordmark */
-  --bone-dim:#aab4ad;
-  --muted:#78837c;
-  --line:rgba(223,231,224,.13);
-  --line-soft:rgba(223,231,224,.07);
+  --ink:#05070a;          /* deep nocturnal black */
+  --ink-2:#0c1117;        /* raised surface black */
+  --bone:#f2f6f3;         /* crisp high-contrast radiant white (15:1 contrast) */
+  --bone-soft:#e1e9e3;    /* soft bone white for primary body */
+  --bone-dim:#c8d4cd;     /* clear secondary white (9:1 contrast) */
+  --muted:#9db0a5;        /* readable sage gray - WCAG AA compliant */
+  --line:rgba(223,231,224,.18);
+  --line-soft:rgba(223,231,224,.10);
   --vermilion:#e0231c;
   --ember:#ff5a3c;
-  --gold:#c9a24a;
+  --gold:#d8b056;
   --pad:clamp(20px, 3.4vw, 56px);
   --nav-h:84px;
   --ease:cubic-bezier(.22,.61,.36,1);
@@ -29,10 +30,12 @@
 *,*::before,*::after{box-sizing:border-box}
 html{ -webkit-text-size-adjust:100%; scroll-behavior:auto; }
 body{
-  margin:0; background:var(--ink); color:var(--bone);
+  margin:0; background:var(--ink); color:var(--bone-soft);
   font-family:'Onest',system-ui,-apple-system,'Helvetica Neue',sans-serif;
-  font-weight:300; font-size:16px; line-height:1.6;
+  font-weight:400; font-size:16px; line-height:1.65;
+  letter-spacing:-0.008em;
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
   overflow-x:hidden;
 }
 body.is-locked{ overflow:hidden; height:100vh; }
@@ -70,8 +73,8 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 }
 .h-hero{ font-size:clamp(26px,3.05vw,46px); }
 .h-sec{ font-size:clamp(30px,4.0vw,60px); }
-.body-lg{ font-size:clamp(14px,1.02vw,17px); line-height:1.72; color:#b4bfb7; font-weight:300; text-shadow:0 1px 20px rgba(3,6,8,.88); }
-.body{ font-size:14px; line-height:1.68; color:#9aa5a0; font-weight:300; text-shadow:0 1px 18px rgba(3,6,8,.85); }
+.body-lg{ font-size:clamp(15px,1.05vw,18px); line-height:1.75; color:var(--bone-soft); font-weight:400; text-shadow:0 1px 12px rgba(3,6,8,.95); }
+.body{ font-size:14.5px; line-height:1.7; color:var(--bone-dim); font-weight:400; text-shadow:0 1px 10px rgba(3,6,8,.95); }
 .num{ font-size:clamp(26px,2.5vw,36px); font-weight:300; letter-spacing:-.02em; color:var(--bone); font-variant-numeric:tabular-nums; }
 
 /* ============================================================= reveal */
@@ -881,6 +884,177 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   [data-rv]{ opacity:1 !important; transform:none !important; }
   .mask-line > span,.word{ opacity:1 !important; transform:none !important; }
 }
+
+/* ======================== PRO UI/UX ENHANCEMENTS ======================== */
+/* High-contrast readability, interactive live pills, and smooth micro-interactions */
+.eyebrow { color: var(--bone-dim) !important; font-weight: 600 !important; text-shadow: 0 1px 12px rgba(0,0,0,0.9); }
+.sec-head .k { color: var(--muted) !important; font-weight: 500; }
+.sec-head .k b { color: var(--vermilion) !important; font-weight: 700; text-shadow: 0 0 12px rgba(224,35,28,0.4); }
+.sec-head .jp { color: var(--bone-dim) !important; font-weight: 600; }
+.gate-copy .lead { color: var(--bone) !important; font-weight: 400 !important; font-size: clamp(16px, 1.22vw, 20px) !important; line-height: 1.7 !important; text-shadow: 0 2px 20px rgba(2,4,7,0.95); }
+.gate-copy .body { color: var(--bone-soft) !important; font-weight: 400 !important; line-height: 1.72 !important; }
+.gate-stats div b { color: var(--bone) !important; font-weight: 500 !important; text-shadow: 0 2px 14px rgba(0,0,0,0.8); }
+.gate-stats div span { color: var(--muted) !important; font-weight: 500 !important; }
+.card-fr { border-color: rgba(223,231,224,0.18) !important; transition: border-color .4s var(--ease), box-shadow .4s var(--ease); }
+.card:hover .card-fr { border-color: rgba(224,35,28,0.55) !important; box-shadow: 0 12px 34px rgba(0,0,0,0.8), 0 0 24px rgba(224,35,28,0.2) !important; }
+.card-lab { color: var(--bone) !important; font-weight: 600 !important; text-shadow: 0 2px 16px rgba(0,0,0,0.9); }
+.card-meta { color: var(--bone-dim) !important; font-weight: 500 !important; }
+
+/* Interactive card action bar */
+.card-actions {
+  display: flex; gap: 8px; margin-top: 10px; align-items: center;
+}
+.card-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 11px; border-radius: 999px;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: all 0.25s var(--ease-out);
+  text-decoration: none;
+}
+.card-btn--demo {
+  background: rgba(224,35,28,0.16); color: #fff;
+  border: 1px solid rgba(224,35,28,0.5);
+}
+.card-btn--demo:hover {
+  background: var(--vermilion); color: #fff;
+  box-shadow: 0 4px 14px rgba(224,35,28,0.5);
+  transform: translateY(-1px);
+}
+.card-btn--code {
+  background: rgba(255,255,255,0.06); color: var(--bone-soft);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.card-btn--code:hover {
+  background: rgba(255,255,255,0.14); color: #fff;
+  border-color: rgba(255,255,255,0.3);
+  transform: translateY(-1px);
+}
+.live-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 6px #22c55e;
+  display: inline-block; animation: pulseLive 2s infinite ease-in-out;
+}
+@keyframes pulseLive {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* Chapter III Project rows legibility & buttons */
+.les {
+  grid-template-columns: 56px minmax(0, 1.15fr) minmax(0, 1.35fr) 130px !important;
+  gap: clamp(16px, 2.4vw, 36px) !important;
+  border-bottom: 1px solid rgba(223,231,224,0.12) !important;
+}
+.les h3 {
+  color: var(--bone) !important; font-weight: 500 !important; font-size: clamp(17px, 1.55vw, 24px) !important;
+  letter-spacing: -0.01em !important;
+}
+.les h3 em { color: var(--gold) !important; font-weight: 600 !important; }
+.les p { color: var(--bone-dim) !important; font-size: 13.5px !important; line-height: 1.62 !important; font-weight: 400 !important; }
+.les .k { color: var(--muted) !important; font-weight: 600 !important; font-size: 13px !important; }
+.les:hover .k { color: var(--vermilion) !important; text-shadow: 0 0 10px rgba(224,35,28,0.5); }
+.les .t { color: var(--bone-soft) !important; font-weight: 500 !important; font-size: 11.5px !important; text-align: right; }
+
+.les-links {
+  display: flex; gap: 8px; align-items: center; margin-top: 7px; flex-wrap: wrap;
+}
+.les-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  transition: all 0.22s var(--ease-out); text-decoration: none;
+}
+.les-btn--demo {
+  background: rgba(224,35,28,0.18); color: #fff;
+  border: 1px solid rgba(224,35,28,0.55);
+}
+.les-btn--demo:hover {
+  background: var(--vermilion); color: #fff;
+  box-shadow: 0 3px 12px rgba(224,35,28,0.45);
+  transform: translateY(-1px);
+}
+.les-btn--repo {
+  background: rgba(223,231,224,0.07); color: var(--bone-soft);
+  border: 1px solid rgba(223,231,224,0.16);
+}
+.les-btn--repo:hover {
+  background: rgba(223,231,224,0.16); color: #fff;
+  border-color: rgba(223,231,224,0.35);
+  transform: translateY(-1px);
+}
+
+/* Connect / CTA buttons */
+.cta {
+  background: rgba(12,17,23,0.85) !important;
+  border-color: rgba(223,231,224,0.22) !important;
+  color: var(--bone) !important;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+.cta:hover {
+  border-color: var(--vermilion) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 30px rgba(224,35,28,0.35) !important;
+}
+.cta--primary {
+  background: rgba(224,35,28,0.22) !important;
+  border-color: rgba(224,35,28,0.6) !important;
+}
+.cta--primary:hover {
+  background: var(--vermilion) !important;
+}
+
+/* Nav & chips visibility */
+.nav-links a { color: var(--bone-dim) !important; font-weight: 500 !important; }
+.nav-links a:hover { color: var(--bone) !important; text-shadow: 0 0 10px rgba(255,255,255,0.4); }
+.chip .tx b { color: var(--bone) !important; font-weight: 600 !important; }
+.chip .tx span { color: var(--muted) !important; font-weight: 500 !important; }
+.chip .num { color: var(--muted) !important; font-weight: 600 !important; }
+.chip:hover .num { color: var(--vermilion) !important; }
+
+/* Mobile responsiveness polish for project rows */
+@media (max-width: 820px) {
+  .les {
+    grid-template-columns: 40px minmax(0, 1fr) !important;
+    gap: 12px !important;
+  }
+  .les p { display: block !important; grid-column: 2 / -1; margin-top: 4px !important; }
+  .les .t { grid-column: 2 / -1; text-align: left !important; margin-top: 6px; }
+}
+
+
+/* Arsenal Skill Icons Dock */
+.arsenal-dock-container {
+  display: flex; flex-direction: column; gap: 8px; align-items: flex-start;
+  margin-top: 14px;
+}
+.arsenal-dock {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 8px 14px;
+  background: rgba(12, 17, 23, 0.75);
+  border: 1px solid rgba(223, 231, 224, 0.16);
+  border-radius: 12px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition: border-color .35s var(--ease), box-shadow .35s var(--ease), transform .35s var(--ease);
+}
+.arsenal-dock:hover {
+  border-color: rgba(224, 35, 28, 0.5);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(224, 35, 28, 0.22);
+  transform: translateY(-2px);
+}
+.arsenal-icons-img {
+  display: block; max-width: 100%; height: auto;
+  border-radius: 8px; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.5));
+}
+.arsenal-caption {
+  font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500;
+}
+@media (max-width: 600px) {
+  .arsenal-dock { padding: 6px 10px; width: 100%; overflow-x: auto; }
+}
+
 </style>
 </head>
 <body data-layout-hero="b" data-layout-story="b" data-layout-gallery="b"
@@ -916,7 +1090,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
       <path d="M5 13h34M9 18.4h26M22 8.5v27" stroke="#dfe7e0" stroke-width="1.5"/>
       <path d="M14 35.5h16" stroke="#dfe7e0" stroke-width="1.2" stroke-opacity=".6"/>
     </svg>
-    <span class="brand-tx"><b>ITZ_JACK~!</b><i>DEVELOPER · REAL-WORLD PROJECTS</i></span>
+    <span class="brand-tx"><b>ITZ_JAGAN~!</b><i>DEVELOPER · REAL-WORLD PROJECTS</i></span>
   </a>
   <nav class="nav-links" id="navlinks">
     <a class="nav-link" href="#gate" data-cursor><span>About</span><span class="alt">山門</span></a>
@@ -934,11 +1108,10 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <div class="hero-top">
     <div class="eyebrow" data-rv="fade"><span class="dot"></span> Developer Portfolio — Itz_jack~!</div>
     <h1 class="display h-hero">
-      <span class="mask-line"><span>Itz_jack~!</span></span>
+      <span class="mask-line"><span>Itz_Jagan~!</span></span>
       <span class="mask-line"><span>Building real-world</span></span>
       <span class="mask-line"><span>projects.</span></span>
     </h1>
-    <p class="hero-sub body" data-rv="up">Developer building practical applications, exploring modern web technologies, interactive 3D experiences, and systems-level concepts.</p>
   </div>
 
   <div class="hero-spacer"></div>
@@ -992,7 +1165,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <div class="gate-grid">
     <h2 class="display h-sec" data-rv="up">Clean architecture, sharp logic, code built to endure.</h2>
     <div class="gate-copy">
-      <p class="lead" data-rv="up">I'm Itz_jack~! — a developer who builds practical applications and explores modern web technologies, interactive 3D experiences, and systems-level concepts. No tutorial clones: every build is centered around robust architectures.</p>
+      <p class="lead" data-rv="up">I'm Itz_Jagan — a developer who builds practical applications and explores modern web technologies, interactive 3D experiences, and systems-level concepts. No tutorial clones: every build is centered around robust architectures.</p>
       <p class="body" data-rv="up">The best work happens quietly, in the shadows, until it ships. Whether orchestrating full-stack data models with Node.js and MongoDB, rendering reactive Three.js canvas environments, or implementing CPU memory algorithms in C and Assembly, I focus on clean code and reliable performance.</p>
       <a class="arrowlink" href="#pathways" data-rv="fade" data-cursor>
         <span>Explore the projects</span>
@@ -1029,29 +1202,41 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <span class="k"><b>02</b> — Still Gardens & Featured Works</span><span class="rule"></span><span class="k jp">庭園</span>
   </div>
   <div class="cards" id="cards">
-    <article class="card" data-rv="up" data-view="0" data-cursor onclick="window.open('https://github.com/jagan118/Gym-Tracker','_blank')" title="Click to view Gym-Tracker repository">
+    <article class="card" data-rv="up" data-view="0" data-cursor onclick="window.open('https://smart-split-k56c.vercel.app/','_blank')" title="Click to open SmartSplit Live Demo">
       <div class="card-fr" data-frame>
         <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
-        <div class="card-lab"><b>Gym-Tracker</b><span class="jp">鍛錬</span></div>
+        <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
+        <div class="card-lab"><b>SmartSplit</b><span class="jp">清算</span></div>
       </div>
-      <div class="card-meta"><span>Full-stack fitness</span><span>01 / 05</span></div>
+      <div class="card-meta"><span>Shared expense manager</span><span>01 / 05</span></div>
+      <div class="card-actions">
+        <a class="card-btn card-btn--demo" href="https://smart-split-k56c.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+        <a class="card-btn card-btn--code" href="https://github.com/jagan118/SmartSplit" target="_blank" rel="noopener" onclick="event.stopPropagation()">Code ↗</a>
+      </div>
     </article>
-    <article class="card" data-rv="up" data-view="1" data-cursor onclick="window.open('https://github.com/jagan118/3D-SketchBook','_blank')" title="Click to view 3D-SketchBook repository">
+    <article class="card" data-rv="up" data-view="1" data-cursor onclick="window.open('https://3-d-sketch-book.vercel.app/','_blank')" title="Click to open 3D-SketchBook Live Demo">
       <div class="card-fr" data-frame>
         <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
         <i class="glow glow--flame" style="--gx:70.5%; --gy:47.2%; --gr:14%; --gt:3.7s; --gt2:5.3s; --gc1:rgba(255,198,124,.62); --gc2:rgba(226,118,40,.30)"></i>
         <div class="card-lab"><b>3D-SketchBook</b><span class="jp">図面</span></div>
       </div>
       <div class="card-meta"><span>Three.js / WebGL</span><span>02 / 05</span></div>
+      <div class="card-actions">
+        <a class="card-btn card-btn--demo" href="https://3-d-sketch-book.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+        <a class="card-btn card-btn--code" href="https://github.com/jagan118/3D-SketchBook" target="_blank" rel="noopener" onclick="event.stopPropagation()">Code ↗</a>
+      </div>
     </article>
-    <article class="card" data-rv="up" data-view="2" data-cursor onclick="window.open('https://github.com/jagan118/SmartSplit','_blank')" title="Click to view SmartSplit repository">
+    <article class="card" data-rv="up" data-view="2" data-cursor onclick="window.open('https://gym-tracker-jackk4.vercel.app/','_blank')" title="Click to open GymLog Live Demo">
       <div class="card-fr" data-frame>
         <span class="card-ar"><svg viewBox="0 0 14 14" fill="none"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg></span>
-        <i class="glow" style="--gx:48.0%; --gy:16.8%; --gr:20%; --gt:7.3s; --gt2:11.2s; --gc1:rgba(255,138,104,.52); --gc2:rgba(208,54,36,.24)"></i>
-        <div class="card-lab"><b>SmartSplit</b><span class="jp">清算</span></div>
+        <i class="glow" style="--gx:80.2%; --gy:23.9%; --gr:22%; --gt:6.1s; --gt2:9.7s; --gc1:rgba(255,142,108,.50); --gc2:rgba(212,56,38,.24)"></i>
+        <div class="card-lab"><b>GymLog (Gym-Tracker)</b><span class="jp">鍛錬</span></div>
       </div>
-      <div class="card-meta"><span>MERN shared expenses</span><span>04 / 05</span></div>
+      <div class="card-meta"><span>Full-stack fitness</span><span>03 / 05</span></div>
+      <div class="card-actions">
+        <a class="card-btn card-btn--demo" href="https://gym-tracker-jackk4.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+        <a class="card-btn card-btn--code" href="https://github.com/jagan118/Gym-Tracker" target="_blank" rel="noopener" onclick="event.stopPropagation()">Code ↗</a>
+      </div>
     </article>
   </div>
 </section>
@@ -1074,61 +1259,71 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <span class="k"><b>03</b> — Sacred Craft & Arsenal</span><span class="rule"></span><span class="k jp">手業</span>
   </div>
   <div class="cur-head">
-    <h2 class="display h-sec" data-rv="up">Five projects. Full-stack systems. One quiet focus.</h2>
-    <p class="body-lg" data-rv="up">HTML · CSS · JavaScript · TypeScript · Angular · React · Node.js · MongoDB. Each project is an exploration of architecture, not a tutorial clone.</p>
+    <h2 class="display h-sec" data-rv="up">Five production projects. Full-stack systems. One quiet focus.</h2>
+    <div class="arsenal-dock-container" data-rv="up">
+      <div class="arsenal-dock">
+        <img src="https://skillicons.dev/icons?i=html,css,js,ts,angular,react,nodejs,express,mongodb&theme=dark" alt="Technical Arsenal: HTML, CSS, JavaScript, TypeScript, Angular, React, Node.js, Express, MongoDB" class="arsenal-icons-img" loading="lazy" />
+      </div>
+      <span class="arsenal-caption">Crafted with modern architecture & zero tutorial clones</span>
+    </div>
   </div>
   <div class="cur" id="cur">
-    <div class="les" data-les="0" data-cursor onclick="window.open('https://github.com/jagan118/Gym-Tracker','_blank')">
+    <div class="les" data-les="0" data-cursor onclick="window.open('https://smart-split-k56c.vercel.app/','_blank')">
       <span class="k">01</span>
       <div>
-        <h3>Gym-Tracker<em class="jp">鍛錬</em></h3>
-        <p style="margin-top:4px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9a24a;">
-          <a href="https://github.com/jagan118/Gym-Tracker" target="_blank" rel="noopener" style="color:var(--bone); text-decoration:underline;">Repository ↗</a> &nbsp;·&nbsp; <span style="color:var(--muted)">Demo: [REPLACE_WITH_GYM_TRACKER_LIVE_DEMO_URL]</span>
-        </p>
+        <h3>SmartSplit<em class="jp">清算</em></h3>
+        <div class="les-links">
+          <a class="les-btn les-btn--demo" href="https://smart-split-k56c.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+          <a class="les-btn les-btn--repo" href="https://github.com/jagan118/SmartSplit" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub Repo ↗</a>
+        </div>
+      </div>
+      <p>Shared expense and bill management tool with categorization, multi-payer balance calculations, and debt reconciliation.</p>
+      <span class="t">Node.js · Express</span><i class="bar"></i>
+    </div>
+    <div class="les" data-les="1" data-cursor onclick="window.open('https://3-d-sketch-book.vercel.app/','_blank')">
+      <span class="k">02</span>
+      <div>
+        <h3>SingaporeSketch-Book (3D-SketchBook)<em class="jp">図面</em></h3>
+        <div class="les-links">
+          <a class="les-btn les-btn--demo" href="https://3-d-sketch-book.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+          <a class="les-btn les-btn--repo" href="https://github.com/jagan118/3D-SketchBook" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub Repo ↗</a>
+        </div>
+      </div>
+      <p>Interactive 3D canvas with orbital camera manipulation, real-time lighting, page-flip concepts, and custom WebGL shaders.</p>
+      <span class="t">Three.js · WebGL</span><i class="bar"></i>
+    </div>
+    <div class="les" data-les="2" data-cursor onclick="window.open('https://team-tasker-wrmi.vercel.app/','_blank')">
+      <span class="k">03</span>
+      <div>
+        <h3>TeamTasker<em class="jp">協同</em></h3>
+        <div class="les-links">
+          <a class="les-btn les-btn--demo" href="https://team-tasker-wrmi.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+          <a class="les-btn les-btn--repo" href="https://github.com/jagan118/TeamTasker" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub Repo ↗</a>
+        </div>
+      </div>
+      <p>Collaborative project coordination platform with task creation, priority tagging, workflows, and role functionality.</p>
+      <span class="t">React · TypeScript</span><i class="bar"></i>
+    </div>
+    <div class="les" data-les="3" data-cursor onclick="window.open('https://gym-tracker-jackk4.vercel.app/','_blank')">
+      <span class="k">04</span>
+      <div>
+        <h3>GymLog (Gym-Tracker)<em class="jp">鍛錬</em></h3>
+        <div class="les-links">
+          <a class="les-btn les-btn--demo" href="https://gym-tracker-jackk4.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+          <a class="les-btn les-btn--repo" href="https://github.com/jagan118/Gym-Tracker" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub Repo ↗</a>
+        </div>
       </div>
       <p>Workout logging and routine management with sets, reps, weights, persistent history, and MongoDB Atlas auth.</p>
       <span class="t">MERN Stack</span><i class="bar"></i>
     </div>
-    <div class="les" data-les="1" data-cursor onclick="window.open('https://github.com/jagan118/3D-SketchBook','_blank')">
-      <span class="k">02</span>
-      <div>
-        <h3>3D-SketchBook<em class="jp">図面</em></h3>
-        <p style="margin-top:4px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9a24a;">
-          <a href="https://github.com/jagan118/3D-SketchBook" target="_blank" rel="noopener" style="color:var(--bone); text-decoration:underline;">Repository ↗</a> &nbsp;·&nbsp; <span style="color:var(--muted)">Demo: [REPLACE_WITH_3D_SKETCHBOOK_LIVE_DEMO_URL]</span>
-        </p>
-      </div>
-      <p>Interactive 3D canvas with model rotation, real-time lighting, page-flip concepts, and custom WebGL shaders.</p>
-      <span class="t">Three.js · WebGL</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="2" data-cursor onclick="window.open('https://github.com/jagan118/TeamTasker','_blank')">
-      <span class="k">03</span>
-      <div>
-        <h3>TeamTasker<em class="jp">協同</em></h3>
-        <p style="margin-top:4px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9a24a;">
-          <a href="https://github.com/jagan118/TeamTasker" target="_blank" rel="noopener" style="color:var(--bone); text-decoration:underline;">Repository ↗</a> &nbsp;·&nbsp; <span style="color:var(--muted)">Demo: [REPLACE_WITH_TEAMTASKER_LIVE_DEMO_URL]</span>
-        </p>
-      </div>
-      <p>Collaborative project coordination platform with task creation, priority tagging, workflows, and role functionality.</p>
-      <span class="t">Full-Stack</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="3" data-cursor onclick="window.open('https://github.com/jagan118/SmartSplit','_blank')">
-      <span class="k">04</span>
-      <div>
-        <h3>SmartSplit<em class="jp">清算</em></h3>
-        <p style="margin-top:4px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9a24a;">
-          <a href="https://github.com/jagan118/SmartSplit" target="_blank" rel="noopener" style="color:var(--bone); text-decoration:underline;">Repository ↗</a> &nbsp;·&nbsp; <span style="color:var(--muted)">Demo: [REPLACE_WITH_SMARTSPLIT_LIVE_DEMO_URL]</span>
-        </p>
-      </div>
-      <p>Shared expense and bill management tool with categorization, multi-payer balance calculations, and debt reconciliation.</p>
-      <span class="t">MERN</span><i class="bar"></i>
-    </div>
-    <div class="les" data-les="4" data-cursor onclick="window.open('https://github.com/jagan118/mini-os','_blank')">
+    <div class="les" data-les="4" data-cursor onclick="window.open('https://mini-os-nu.vercel.app/','_blank')">
       <span class="k">05</span>
       <div>
-        <h3>mini-os<em class="jp">核心</em></h3>
-        <p style="margin-top:4px; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; color:#c9a24a;">
-          <a href="https://github.com/jagan118/mini-os" target="_blank" rel="noopener" style="color:var(--bone); text-decoration:underline;">Repository ↗</a> &nbsp;·&nbsp; <span style="color:var(--muted)">Demo: [REPLACE_WITH_MINI_OS_LIVE_DEMO_URL]</span>
-        </p>
+        <h3>Mini-Os<em class="jp">核心</em></h3>
+        <div class="les-links">
+          <a class="les-btn les-btn--demo" href="https://mini-os-nu.vercel.app/" target="_blank" rel="noopener" onclick="event.stopPropagation()"><span class="live-dot"></span> Live Demo ↗</a>
+          <a class="les-btn les-btn--repo" href="https://github.com/jagan118/mini-os-" target="_blank" rel="noopener" onclick="event.stopPropagation()">GitHub Repo ↗</a>
+        </div>
       </div>
       <p>Educational OS simulation exploring CPU process scheduling, memory allocation, paging, and kernel routines.</p>
       <span class="t">C · Assembly</span><i class="bar"></i>
@@ -1157,12 +1352,16 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
   <h2 class="display" data-rv="up">Afterlight</h2>
   <p class="body-lg" data-rv="up">The gate does not close behind you. Open to full-time developer opportunities, collaborative projects, and creative technical challenges.</p>
   <div style="display:flex; gap:16px; align-items:center; justify-content:center; flex-wrap:wrap; margin-top:44px;">
-    <a class="cta" href="mailto:jaganachari2006@gmail.com" data-rv="fade" data-cursor>
+    <a class="cta cta--primary" href="mailto:jaganachari2006@gmail.com" data-rv="fade" data-cursor>
       <i></i><span>Email Me — jaganachari2006@gmail.com</span>
       <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
     </a>
+    <a class="cta" href="https://www.linkedin.com/in/avula-jagan/" target="_blank" rel="noopener" data-rv="fade" data-cursor>
+      <i></i><span>LinkedIn — Avula Jagan ↗</span>
+      <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
+    </a>
     <a class="cta" href="https://github.com/jagan118" target="_blank" rel="noopener" data-rv="fade" data-cursor>
-      <i></i><span>GitHub — @jagan118</span>
+      <i></i><span>GitHub — @jagan118 ↗</span>
       <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
     </a>
   </div>
@@ -1190,12 +1389,12 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
       </svg>
       <p><b>Itz_jack~!</b> &nbsp;·&nbsp; Developer building practical applications, modern web architectures, and interactive 3D WebGL experiences.</p>
     </div>
-    <div><h4>Projects</h4><ul>
-      <li><a href="https://github.com/jagan118/Gym-Tracker" target="_blank" rel="noopener" data-cursor>Gym-Tracker</a></li>
-      <li><a href="https://github.com/jagan118/3D-SketchBook" target="_blank" rel="noopener" data-cursor>3D-SketchBook</a></li>
-      <li><a href="https://github.com/jagan118/TeamTasker" target="_blank" rel="noopener" data-cursor>TeamTasker</a></li>
-      <li><a href="https://github.com/jagan118/SmartSplit" target="_blank" rel="noopener" data-cursor>SmartSplit</a></li>
-      <li><a href="https://github.com/jagan118/mini-os" target="_blank" rel="noopener" data-cursor>mini-os</a></li>
+    <div><h4>Projects & Demos</h4><ul>
+      <li><a href="https://smart-split-k56c.vercel.app/" target="_blank" rel="noopener" data-cursor>SmartSplit (Demo) ↗</a></li>
+      <li><a href="https://3-d-sketch-book.vercel.app/" target="_blank" rel="noopener" data-cursor>3D-SketchBook (Demo) ↗</a></li>
+      <li><a href="https://team-tasker-wrmi.vercel.app/" target="_blank" rel="noopener" data-cursor>TeamTasker (Demo) ↗</a></li>
+      <li><a href="https://gym-tracker-jackk4.vercel.app/" target="_blank" rel="noopener" data-cursor>GymLog (Demo) ↗</a></li>
+      <li><a href="https://mini-os-nu.vercel.app/" target="_blank" rel="noopener" data-cursor>Mini-Os (Demo) ↗</a></li>
     </ul></div>
     <div><h4>Arsenal</h4><ul>
       <li><a href="#lessons" data-cursor>HTML5 & CSS3</a></li>
@@ -1204,10 +1403,10 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
       <li><a href="#lessons" data-cursor>Node.js & MongoDB</a></li>
     </ul></div>
     <div><h4>Elsewhere</h4><ul>
-      <li><a href="https://github.com/jagan118" target="_blank" rel="noopener" data-cursor>GitHub Profile</a></li>
-      <li><a href="mailto:jaganachari2006@gmail.com" data-cursor>Email</a></li>
-      <li><a href="[REPLACE_WITH_LINKEDIN_URL]" data-cursor>LinkedIn [Soon]</a></li>
-      <li><a href="[REPLACE_WITH_TWITTER_URL]" data-cursor>X / Twitter [Soon]</a></li>
+      <li><a href="https://www.linkedin.com/in/avula-jagan/" target="_blank" rel="noopener" data-cursor>LinkedIn — Avula Jagan ↗</a></li>
+      <li><a href="https://github.com/jagan118" target="_blank" rel="noopener" data-cursor>GitHub — @jagan118 ↗</a></li>
+      <li><a href="mailto:jaganachari2006@gmail.com" data-cursor>Email Direct</a></li>
+      <li><a href="https://kaga-portfolio-three.vercel.app/" target="_blank" rel="noopener" data-cursor>Portfolio Vercel ↗</a></li>
     </ul></div>
   </div>
   <div class="foot-base">
